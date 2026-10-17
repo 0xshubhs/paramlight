@@ -1,0 +1,360 @@
+{
+  "name": "allcodevisual",
+  "displayName": "All Code Visual",
+  "description": "Semantic inline highlighting of function arguments, fields, constants, globals and shadowed names, plus a built-in formatter, for JavaScript, TypeScript, Python, Rust, Go, C, C++, Java, C#, PHP and Ruby.",
+  "version": "0.1.0",
+  "publisher": "0xshubhs",
+  "license": "MIT",
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#1e1e2e",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/0xshubhs/allcodevisualextension.git"
+  },
+  "bugs": {
+    "url": "https://github.com/0xshubhs/allcodevisualextension/issues"
+  },
+  "homepage": "https://github.com/0xshubhs/allcodevisualextension#readme",
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Formatters",
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "semantic highlighting",
+    "arguments",
+    "parameters",
+    "shadowing",
+    "tree-sitter",
+    "formatter",
+    "python",
+    "rust",
+    "go",
+    "typescript"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onLanguage:javascript",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescript",
+    "onLanguage:typescriptreact",
+    "onLanguage:python",
+    "onLanguage:rust",
+    "onLanguage:go",
+    "onLanguage:c",
+    "onLanguage:cpp",
+    "onLanguage:java",
+    "onLanguage:csharp",
+    "onLanguage:php",
+    "onLanguage:ruby"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": "limited",
+      "description": "Decorations work everywhere. In untrusted workspaces formatter commands from workspace settings and project-local Prettier binaries are not run.",
+      "restrictedConfigurations": [
+        "allCodeVisual.format.tools"
+      ]
+    },
+    "virtualWorkspaces": true
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "allCodeVisual.toggle",
+        "title": "Toggle Decorations",
+        "category": "All Code Visual"
+      },
+      {
+        "command": "allCodeVisual.refresh",
+        "title": "Refresh Decorations",
+        "category": "All Code Visual"
+      },
+      {
+        "command": "allCodeVisual.format",
+        "title": "Format Document",
+        "category": "All Code Visual"
+      },
+      {
+        "command": "allCodeVisual.showLog",
+        "title": "Show Log",
+        "category": "All Code Visual"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "allCodeVisual.format",
+          "when": "editorIsOpen && !editorReadonly"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "All Code Visual",
+      "properties": {
+        "allCodeVisual.enable": {
+          "type": "boolean",
+          "default": true,
+          "scope": "language-overridable",
+          "description": "Enable semantic decorations."
+        },
+        "allCodeVisual.languages": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "javascript",
+              "javascriptreact",
+              "typescript",
+              "typescriptreact",
+              "python",
+              "rust",
+              "go",
+              "c",
+              "cpp",
+              "java",
+              "csharp",
+              "php",
+              "ruby"
+            ]
+          },
+          "uniqueItems": true,
+          "default": [
+            "javascript",
+            "javascriptreact",
+            "typescript",
+            "typescriptreact",
+            "python",
+            "rust",
+            "go",
+            "c",
+            "cpp",
+            "java",
+            "csharp",
+            "php",
+            "ruby"
+          ],
+          "description": "Languages that get decorations."
+        },
+        "allCodeVisual.arguments.enable": {
+          "type": "boolean",
+          "default": true,
+          "scope": "language-overridable",
+          "description": "Give every function argument its own color wherever it is used."
+        },
+        "allCodeVisual.arguments.mode": {
+          "type": "string",
+          "enum": [
+            "color and symbol",
+            "color only",
+            "symbol only"
+          ],
+          "enumDescriptions": [
+            "Colored background plus the suffix symbol.",
+            "Colored background only.",
+            "Suffix symbol only."
+          ],
+          "default": "color and symbol",
+          "description": "How function arguments are highlighted."
+        },
+        "allCodeVisual.arguments.suffix": {
+          "type": "string",
+          "default": "⬆",
+          "maxLength": 4,
+          "description": "Symbol appended to every use of a function argument."
+        },
+        "allCodeVisual.arguments.paletteSize": {
+          "type": "integer",
+          "default": 15,
+          "minimum": 1,
+          "maximum": 32,
+          "description": "Number of distinct argument colors before they repeat."
+        },
+        "allCodeVisual.fields.enable": {
+          "type": "boolean",
+          "default": true,
+          "scope": "language-overridable",
+          "description": "Box class fields and struct members (dotted goldenrod), readonly ones in orchid."
+        },
+        "allCodeVisual.constants.enable": {
+          "type": "boolean",
+          "default": true,
+          "scope": "language-overridable",
+          "description": "Box constants (dotted green)."
+        },
+        "allCodeVisual.globals.enable": {
+          "type": "boolean",
+          "default": true,
+          "scope": "language-overridable",
+          "description": "Box mutable module-level and global variables (dotted blue)."
+        },
+        "allCodeVisual.shadowing.enable": {
+          "type": "boolean",
+          "default": true,
+          "scope": "language-overridable",
+          "description": "Box declarations that shadow an argument, global, constant or field (solid red)."
+        },
+        "allCodeVisual.hover.enable": {
+          "type": "boolean",
+          "default": true,
+          "scope": "language-overridable",
+          "description": "Explain decorated names on hover."
+        },
+        "allCodeVisual.overviewRuler.enable": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show boxed names in the overview ruler."
+        },
+        "allCodeVisual.maxFileSize": {
+          "type": "integer",
+          "default": 1000000,
+          "minimum": 0,
+          "scope": "language-overridable",
+          "description": "Skip files longer than this many characters."
+        },
+        "allCodeVisual.debounce": {
+          "type": "integer",
+          "default": 200,
+          "minimum": 0,
+          "maximum": 5000,
+          "description": "Delay in milliseconds after typing before decorations are recomputed."
+        },
+        "allCodeVisual.format.enable": {
+          "type": "boolean",
+          "default": true,
+          "scope": "language-overridable",
+          "markdownDescription": "Register All Code Visual as a document formatter. Make it the default with `\"editor.defaultFormatter\": \"0xshubhs.allcodevisual\"`."
+        },
+        "allCodeVisual.format.timeout": {
+          "type": "integer",
+          "default": 10000,
+          "minimum": 1000,
+          "scope": "language-overridable",
+          "description": "Milliseconds before an external formatter is stopped."
+        },
+        "allCodeVisual.format.tools": {
+          "type": "object",
+          "default": {},
+          "scope": "resource",
+          "markdownDescription": "Formatters to use instead of the defaults, keyed by language id. Each entry is a list tried in order; the first installed one wins. The tool reads the document on stdin and writes the result to stdout. `${file}`, `${fileDirname}`, `${workspaceFolder}` and `${rustEdition}` are expanded in `args`.\n\nExample: `{ \"python\": [{ \"command\": \"ruff\", \"args\": [\"format\", \"-\"] }] }`",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "command"
+              ],
+              "properties": {
+                "command": {
+                  "type": "string",
+                  "description": "Executable name or path."
+                },
+                "args": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "default": []
+                },
+                "okExitCodes": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  },
+                  "description": "Exit codes that count as success. Defaults to [0]."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "colors": [
+      {
+        "id": "allCodeVisual.fieldBorder",
+        "description": "Border around class fields and struct members.",
+        "defaults": {
+          "dark": "#DAA520",
+          "light": "#B8860B",
+          "highContrast": "#FFD700",
+          "highContrastLight": "#8B6508"
+        }
+      },
+      {
+        "id": "allCodeVisual.readonlyFieldBorder",
+        "description": "Border around readonly, final and const fields.",
+        "defaults": {
+          "dark": "#BA55D3",
+          "light": "#9932CC",
+          "highContrast": "#EE82EE",
+          "highContrastLight": "#7B1FA2"
+        }
+      },
+      {
+        "id": "allCodeVisual.constantBorder",
+        "description": "Border around constants.",
+        "defaults": {
+          "dark": "#3CB371",
+          "light": "#006400",
+          "highContrast": "#7CFC00",
+          "highContrastLight": "#006400"
+        }
+      },
+      {
+        "id": "allCodeVisual.globalBorder",
+        "description": "Border around mutable module-level and global variables.",
+        "defaults": {
+          "dark": "#4F9DE0",
+          "light": "#00008B",
+          "highContrast": "#87CEFA",
+          "highContrastLight": "#00008B"
+        }
+      },
+      {
+        "id": "allCodeVisual.shadowBorder",
+        "description": "Border around declarations that shadow another name.",
+        "defaults": {
+          "dark": "#FF4040",
+          "light": "#D00000",
+          "highContrast": "#FF0000",
+          "highContrastLight": "#B00000"
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "build": "node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch",
+    "package": "npm run check && node esbuild.mjs --production",
+    "check": "tsc -p . --noEmit",
+    "lint": "eslint src",
+    "compile-tests": "tsc -p .",
+    "test:unit": "npm run compile-tests && node --test \"out/test/unit/**/*.test.js\"",
+    "pretest": "npm run compile-tests && npm run build && npm run lint",
+    "test": "vscode-test",
+    "vsix": "vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@prettier/plugin-php": "0.25.0",
+    "@types/mocha": "10.0.10",
+    "@types/node": "22.20.5",
+    "@types/vscode": "1.100.0",
+    "@vscode/test-cli": "0.0.15",
+    "@vscode/test-electron": "3.1.0",
+    "@vscode/tree-sitter-wasm": "0.3.1",
+    "@vscode/vsce": "3.9.2",
+    "esbuild": "0.28.2",
+    "eslint": "9.39.5",
+    "prettier": "3.9.9",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.70.0"
+  }
+}

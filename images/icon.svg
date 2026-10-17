@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <rect width="256" height="256" rx="44" fill="#1e1e2e"/>
+  <g font-family="DejaVu Sans Mono, monospace" font-size="34" font-weight="bold">
+    <rect x="34" y="52" width="94" height="40" rx="5" fill="#3b82f6" fill-opacity="0.35"/>
+    <text x="40" y="83" fill="#9ec5ff">arg</text>
+    <text x="104" y="76" fill="#9ec5ff" font-size="22">⬆</text>
+    <rect x="140" y="52" width="82" height="40" rx="5" fill="none" stroke="#DAA520" stroke-width="3" stroke-dasharray="4 4"/>
+    <text x="148" y="83" fill="#f2d48a">fld</text>
+    <rect x="34" y="108" width="82" height="40" rx="5" fill="none" stroke="#3CB371" stroke-width="3" stroke-dasharray="4 4"/>
+    <text x="42" y="139" fill="#9be3b6">MAX</text>
+    <rect x="128" y="108" width="94" height="40" rx="5" fill="#e11d48" fill-opacity="0.35"/>
+    <text x="134" y="139" fill="#ffb3c4">arg</text>
+    <text x="198" y="132" fill="#ffb3c4" font-size="22">⬆</text>
+    <rect x="34" y="164" width="188" height="40" rx="5" fill="none" stroke="#FF4040" stroke-width="3"/>
+    <text x="42" y="195" fill="#ffd0d0">shadow</text>
+  </g>
+</svg>
