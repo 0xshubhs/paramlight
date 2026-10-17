@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import type { CliTool } from './format/tools';
 
-export const SECTION = 'allCodeVisual';
+export const SECTION = 'paramlight';
 
 export type ArgumentsMode = 'color and symbol' | 'color only' | 'symbol only';
 

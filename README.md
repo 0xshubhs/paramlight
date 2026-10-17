@@ -1,4 +1,4 @@
-# All Code Visual
+# Paramlight
 
 Semantic inline highlighting for the code you read every day, in the style of
 [Solidity Visual Developer](https://github.com/ConsenSysDiligence/vscode-solidity-auditor),
@@ -43,15 +43,15 @@ line where it is declared.
 
 ## Formatter
 
-All Code Visual registers itself as a document formatter for every language above. To use it,
+Paramlight registers itself as a document formatter for every language above. To use it,
 pick it once with **Format Document With...** or set it as the default:
 
 ```jsonc
-"[python]": { "editor.defaultFormatter": "0xshubhs.allcodevisual" },
-"[rust]": { "editor.defaultFormatter": "0xshubhs.allcodevisual" }
+"[python]": { "editor.defaultFormatter": "0xshubhs.paramlight" },
+"[rust]": { "editor.defaultFormatter": "0xshubhs.paramlight" }
 ```
 
-You can also run **All Code Visual: Format Document** from the command palette without making
+You can also run **Paramlight: Format Document** from the command palette without making
 it the default.
 
 - JavaScript, TypeScript and PHP work out of the box with the bundled Prettier. It reads JSON
@@ -61,11 +61,11 @@ it the default.
 - Every other language pipes the document through an installed CLI formatter. The first tool
   of the list that is installed wins. If none is installed you get one warning per language
   that tells you what to install.
-- Override or add tools per language with `allCodeVisual.format.tools`. Each tool reads the
+- Override or add tools per language with `paramlight.format.tools`. Each tool reads the
   document on stdin and writes the result to stdout:
 
 ```jsonc
-"allCodeVisual.format.tools": {
+"paramlight.format.tools": {
   "python": [{ "command": "ruff", "args": ["format", "--stdin-filename", "${file}", "-"] }],
   "csharp": [{ "command": "csharpier", "args": ["format", "--write-stdout"] }],
   "ruby": [{ "command": "rufo", "args": [], "okExitCodes": [0, 3] }]
@@ -78,37 +78,37 @@ it the default.
 
 | Setting | Default | |
 | --- | --- | --- |
-| `allCodeVisual.enable` | `true` | Turn decorations on or off. |
-| `allCodeVisual.languages` | all | Languages that get decorations. |
-| `allCodeVisual.arguments.enable` | `true` | Argument colors. |
-| `allCodeVisual.arguments.mode` | `color and symbol` | `color only` or `symbol only` are also available. |
-| `allCodeVisual.arguments.suffix` | `⬆` | Symbol appended to arguments. |
-| `allCodeVisual.arguments.paletteSize` | `15` | Distinct argument colors before they repeat. |
-| `allCodeVisual.fields.enable` | `true` | Field and readonly field boxes. |
-| `allCodeVisual.constants.enable` | `true` | Constant boxes. |
-| `allCodeVisual.globals.enable` | `true` | Global variable boxes. |
-| `allCodeVisual.shadowing.enable` | `true` | Shadowing warnings. |
-| `allCodeVisual.hover.enable` | `true` | Hover explanations. |
-| `allCodeVisual.overviewRuler.enable` | `false` | Show boxes in the overview ruler. |
-| `allCodeVisual.maxFileSize` | `1000000` | Skip larger files (characters). |
-| `allCodeVisual.debounce` | `200` | Milliseconds to wait after typing. |
-| `allCodeVisual.format.enable` | `true` | Register the formatter. |
-| `allCodeVisual.format.timeout` | `10000` | Milliseconds before an external formatter is stopped. |
-| `allCodeVisual.format.tools` | `{}` | Formatter overrides, see above. |
+| `paramlight.enable` | `true` | Turn decorations on or off. |
+| `paramlight.languages` | all | Languages that get decorations. |
+| `paramlight.arguments.enable` | `true` | Argument colors. |
+| `paramlight.arguments.mode` | `color and symbol` | `color only` or `symbol only` are also available. |
+| `paramlight.arguments.suffix` | `⬆` | Symbol appended to arguments. |
+| `paramlight.arguments.paletteSize` | `15` | Distinct argument colors before they repeat. |
+| `paramlight.fields.enable` | `true` | Field and readonly field boxes. |
+| `paramlight.constants.enable` | `true` | Constant boxes. |
+| `paramlight.globals.enable` | `true` | Global variable boxes. |
+| `paramlight.shadowing.enable` | `true` | Shadowing warnings. |
+| `paramlight.hover.enable` | `true` | Hover explanations. |
+| `paramlight.overviewRuler.enable` | `false` | Show boxes in the overview ruler. |
+| `paramlight.maxFileSize` | `1000000` | Skip larger files (characters). |
+| `paramlight.debounce` | `200` | Milliseconds to wait after typing. |
+| `paramlight.format.enable` | `true` | Register the formatter. |
+| `paramlight.format.timeout` | `10000` | Milliseconds before an external formatter is stopped. |
+| `paramlight.format.tools` | `{}` | Formatter overrides, see above. |
 
 Settings marked as language-overridable in the settings UI can be set per language, for
-example `"[python]": { "allCodeVisual.globals.enable": false }`.
+example `"[python]": { "paramlight.globals.enable": false }`.
 
-The box colors are theme colors (`allCodeVisual.fieldBorder`, `readonlyFieldBorder`,
+The box colors are theme colors (`paramlight.fieldBorder`, `readonlyFieldBorder`,
 `constantBorder`, `globalBorder`, `shadowBorder`) and can be changed in
 `workbench.colorCustomizations`.
 
 ## Commands
 
-- **All Code Visual: Toggle Decorations**
-- **All Code Visual: Refresh Decorations**
-- **All Code Visual: Format Document**
-- **All Code Visual: Show Log**
+- **Paramlight: Toggle Decorations**
+- **Paramlight: Refresh Decorations**
+- **Paramlight: Format Document**
+- **Paramlight: Show Log**
 
 ## How it works
 

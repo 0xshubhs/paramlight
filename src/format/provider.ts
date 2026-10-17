@@ -122,10 +122,10 @@ export class FormatProvider implements vscode.DocumentFormattingEditProvider {
 		const names = tools.filter((t) => !isBundled(t) && !t.localBin).map((t) => `\`${toolName(t)}\``);
 		const hint = names.length > 0 ? `Install ${names.join(' or ')}, or ` : '';
 		void vscode.window
-			.showWarningMessage(`All Code Visual: no formatter found for ${languageId}. ${hint}set "allCodeVisual.format.tools".`, 'Open Settings')
+			.showWarningMessage(`Paramlight: no formatter found for ${languageId}. ${hint}set "paramlight.format.tools".`, 'Open Settings')
 			.then((choice) => {
 				if (choice) {
-					void vscode.commands.executeCommand('workbench.action.openSettings', 'allCodeVisual.format');
+					void vscode.commands.executeCommand('workbench.action.openSettings', 'paramlight.format');
 				}
 			});
 	}

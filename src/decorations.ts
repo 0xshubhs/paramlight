@@ -5,11 +5,11 @@ import type { DocumentSettings, StyleSettings } from './config';
 type BoxKind = Exclude<MarkKind, 'param'>;
 
 const BOX_COLORS: Readonly<Record<BoxKind, string>> = {
-	field: 'allCodeVisual.fieldBorder',
-	readonlyField: 'allCodeVisual.readonlyFieldBorder',
-	constant: 'allCodeVisual.constantBorder',
-	global: 'allCodeVisual.globalBorder',
-	shadow: 'allCodeVisual.shadowBorder',
+	field: 'paramlight.fieldBorder',
+	readonlyField: 'paramlight.readonlyFieldBorder',
+	constant: 'paramlight.constantBorder',
+	global: 'paramlight.globalBorder',
+	shadow: 'paramlight.shadowBorder',
 };
 
 /** Owns every decoration type; recreated whenever the style settings change. */

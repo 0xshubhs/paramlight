@@ -3,13 +3,13 @@ import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 import * as vscode from 'vscode';
-import type { AllCodeVisualApi } from '../../extension';
+import type { ParamlightApi } from '../../extension';
 
-const EXTENSION_ID = '0xshubhs.allcodevisual';
+const EXTENSION_ID = '0xshubhs.paramlight';
 const fixtures = (): string => vscode.workspace.workspaceFolders![0].uri.fsPath;
 
-async function api(): Promise<AllCodeVisualApi> {
-	const ext = vscode.extensions.getExtension<AllCodeVisualApi>(EXTENSION_ID);
+async function api(): Promise<ParamlightApi> {
+	const ext = vscode.extensions.getExtension<ParamlightApi>(EXTENSION_ID);
 	assert.ok(ext, 'extension is installed');
 	return ext.activate();
 }
@@ -49,7 +49,7 @@ function tempFile(name: string, content: string): vscode.Uri {
 	return vscode.Uri.file(file);
 }
 
-suite('All Code Visual', () => {
+suite('Paramlight', () => {
 	teardown(async () => {
 		await vscode.commands.executeCommand('workbench.action.closeAllEditors');
 	});
@@ -97,7 +97,7 @@ suite('All Code Visual', () => {
 	});
 
 	test('honours language-specific settings', async () => {
-		const config = vscode.workspace.getConfiguration('allCodeVisual', { languageId: 'python' });
+		const config = vscode.workspace.getConfiguration('paramlight', { languageId: 'python' });
 		await config.update('hover.enable', false, vscode.ConfigurationTarget.Global, true);
 		try {
 			const document = await vscode.workspace.openTextDocument(path.join(fixtures(), 'sample.py'));
@@ -120,9 +120,9 @@ suite('All Code Visual', () => {
 	});
 
 	test('toggle flips the enable setting', async () => {
-		const config = () => vscode.workspace.getConfiguration('allCodeVisual');
+		const config = () => vscode.workspace.getConfiguration('paramlight');
 		const before = config().get<boolean>('enable');
-		await vscode.commands.executeCommand('allCodeVisual.toggle');
+		await vscode.commands.executeCommand('paramlight.toggle');
 		try {
 			assert.equal(config().get<boolean>('enable'), !before);
 		} finally {
@@ -134,7 +134,7 @@ suite('All Code Visual', () => {
 		const document = await vscode.workspace.openTextDocument(tempFile('messy.js', 'const a={b:1,c:[1,2]}\nfunction f( x ){return x}\n'));
 		const editor = await vscode.window.showTextDocument(document);
 		editor.options = { tabSize: 3, insertSpaces: true };
-		await vscode.commands.executeCommand('allCodeVisual.format');
+		await vscode.commands.executeCommand('paramlight.format');
 		await waitFor(() => document.getText().includes('const a = { b: 1, c: [1, 2] };'), 'formatted text');
 		assert.equal(document.getText(), 'const a = { b: 1, c: [1, 2] };\nfunction f(x) {\n   return x;\n}\n');
 	});
@@ -144,7 +144,7 @@ suite('All Code Visual', () => {
 		fs.writeFileSync(path.join(path.dirname(uri.fsPath), '.prettierrc'), '{ "tabWidth": 2, "singleQuote": true, "semi": false }');
 		const document = await vscode.workspace.openTextDocument(uri);
 		await vscode.window.showTextDocument(document);
-		await vscode.commands.executeCommand('allCodeVisual.format');
+		await vscode.commands.executeCommand('paramlight.format');
 		await waitFor(() => document.getText().includes("return 'x'"), 'formatted text');
 		assert.equal(document.getText(), "function f(x: number) {\n  return 'x'\n}\n");
 	});

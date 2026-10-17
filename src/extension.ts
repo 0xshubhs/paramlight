@@ -9,7 +9,7 @@ import { FormatProvider } from './format/provider';
 import { renderHover } from './hover';
 
 /** Returned from `activate` so integration tests can observe the analysis. */
-export interface AllCodeVisualApi {
+export interface ParamlightApi {
 	marksFor(document: vscode.TextDocument): Mark[] | undefined;
 	idle(): Promise<void>;
 }
@@ -20,8 +20,8 @@ const selector: vscode.DocumentSelector = LANGUAGE_IDS.flatMap((language) => [
 	{ language, scheme: 'vscode-vfs' },
 ]);
 
-export function activate(context: vscode.ExtensionContext): AllCodeVisualApi {
-	const log = vscode.window.createOutputChannel('All Code Visual', { log: true });
+export function activate(context: vscode.ExtensionContext): ParamlightApi {
+	const log = vscode.window.createOutputChannel('Paramlight', { log: true });
 	const analyzer = new CodeAnalyzer(context.asAbsolutePath('dist/wasm'));
 	const controller = new Controller(analyzer, log);
 	const formatter = new FormatProvider(log);
@@ -60,19 +60,19 @@ export function activate(context: vscode.ExtensionContext): AllCodeVisualApi {
 				return new vscode.Hover(md, new vscode.Range(document.positionAt(first.start), document.positionAt(first.end)));
 			},
 		}),
-		vscode.commands.registerCommand('allCodeVisual.toggle', async () => {
+		vscode.commands.registerCommand('paramlight.toggle', async () => {
 			const config = vscode.workspace.getConfiguration(SECTION);
 			await config.update('enable', !config.get<boolean>('enable', true), vscode.ConfigurationTarget.Global);
 		}),
-		vscode.commands.registerCommand('allCodeVisual.refresh', () => controller.restyle()),
-		vscode.commands.registerCommand('allCodeVisual.showLog', () => log.show()),
-		vscode.commands.registerCommand('allCodeVisual.format', async () => {
+		vscode.commands.registerCommand('paramlight.refresh', () => controller.restyle()),
+		vscode.commands.registerCommand('paramlight.showLog', () => log.show()),
+		vscode.commands.registerCommand('paramlight.format', async () => {
 			const editor = vscode.window.activeTextEditor;
 			if (!editor) {
 				return;
 			}
 			if (!formatSettings(editor.document).enable) {
-				void vscode.window.showInformationMessage('All Code Visual: formatting is disabled ("allCodeVisual.format.enable").');
+				void vscode.window.showInformationMessage('Paramlight: formatting is disabled ("paramlight.format.enable").');
 				return;
 			}
 			const options: vscode.FormattingOptions = {

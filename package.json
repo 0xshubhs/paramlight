@@ -1,6 +1,6 @@
 {
-  "name": "allcodevisual",
-  "displayName": "All Code Visual",
+  "name": "paramlight",
+  "displayName": "Paramlight",
   "description": "Semantic inline highlighting of function arguments, fields, constants, globals and shadowed names, plus a built-in formatter, for JavaScript, TypeScript, Python, Rust, Go, C, C++, Java, C#, PHP and Ruby.",
   "version": "0.1.0",
   "publisher": "0xshubhs",
@@ -12,12 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/0xshubhs/allcodevisualextension.git"
+    "url": "https://github.com/0xshubhs/paramlight.git"
   },
   "bugs": {
-    "url": "https://github.com/0xshubhs/allcodevisualextension/issues"
+    "url": "https://github.com/0xshubhs/paramlight/issues"
   },
-  "homepage": "https://github.com/0xshubhs/allcodevisualextension#readme",
+  "homepage": "https://github.com/0xshubhs/paramlight#readme",
   "engines": {
     "vscode": "^1.100.0"
   },
@@ -60,7 +60,7 @@
       "supported": "limited",
       "description": "Decorations work everywhere. In untrusted workspaces formatter commands from workspace settings and project-local Prettier binaries are not run.",
       "restrictedConfigurations": [
-        "allCodeVisual.format.tools"
+        "paramlight.format.tools"
       ]
     },
     "virtualWorkspaces": true
@@ -68,44 +68,44 @@
   "contributes": {
     "commands": [
       {
-        "command": "allCodeVisual.toggle",
+        "command": "paramlight.toggle",
         "title": "Toggle Decorations",
-        "category": "All Code Visual"
+        "category": "Paramlight"
       },
       {
-        "command": "allCodeVisual.refresh",
+        "command": "paramlight.refresh",
         "title": "Refresh Decorations",
-        "category": "All Code Visual"
+        "category": "Paramlight"
       },
       {
-        "command": "allCodeVisual.format",
+        "command": "paramlight.format",
         "title": "Format Document",
-        "category": "All Code Visual"
+        "category": "Paramlight"
       },
       {
-        "command": "allCodeVisual.showLog",
+        "command": "paramlight.showLog",
         "title": "Show Log",
-        "category": "All Code Visual"
+        "category": "Paramlight"
       }
     ],
     "menus": {
       "commandPalette": [
         {
-          "command": "allCodeVisual.format",
+          "command": "paramlight.format",
           "when": "editorIsOpen && !editorReadonly"
         }
       ]
     },
     "configuration": {
-      "title": "All Code Visual",
+      "title": "Paramlight",
       "properties": {
-        "allCodeVisual.enable": {
+        "paramlight.enable": {
           "type": "boolean",
           "default": true,
           "scope": "language-overridable",
           "description": "Enable semantic decorations."
         },
-        "allCodeVisual.languages": {
+        "paramlight.languages": {
           "type": "array",
           "items": {
             "type": "string",
@@ -143,13 +143,13 @@
           ],
           "description": "Languages that get decorations."
         },
-        "allCodeVisual.arguments.enable": {
+        "paramlight.arguments.enable": {
           "type": "boolean",
           "default": true,
           "scope": "language-overridable",
           "description": "Give every function argument its own color wherever it is used."
         },
-        "allCodeVisual.arguments.mode": {
+        "paramlight.arguments.mode": {
           "type": "string",
           "enum": [
             "color and symbol",
@@ -164,82 +164,82 @@
           "default": "color and symbol",
           "description": "How function arguments are highlighted."
         },
-        "allCodeVisual.arguments.suffix": {
+        "paramlight.arguments.suffix": {
           "type": "string",
           "default": "⬆",
           "maxLength": 4,
           "description": "Symbol appended to every use of a function argument."
         },
-        "allCodeVisual.arguments.paletteSize": {
+        "paramlight.arguments.paletteSize": {
           "type": "integer",
           "default": 15,
           "minimum": 1,
           "maximum": 32,
           "description": "Number of distinct argument colors before they repeat."
         },
-        "allCodeVisual.fields.enable": {
+        "paramlight.fields.enable": {
           "type": "boolean",
           "default": true,
           "scope": "language-overridable",
           "description": "Box class fields and struct members (dotted goldenrod), readonly ones in orchid."
         },
-        "allCodeVisual.constants.enable": {
+        "paramlight.constants.enable": {
           "type": "boolean",
           "default": true,
           "scope": "language-overridable",
           "description": "Box constants (dotted green)."
         },
-        "allCodeVisual.globals.enable": {
+        "paramlight.globals.enable": {
           "type": "boolean",
           "default": true,
           "scope": "language-overridable",
           "description": "Box mutable module-level and global variables (dotted blue)."
         },
-        "allCodeVisual.shadowing.enable": {
+        "paramlight.shadowing.enable": {
           "type": "boolean",
           "default": true,
           "scope": "language-overridable",
           "description": "Box declarations that shadow an argument, global, constant or field (solid red)."
         },
-        "allCodeVisual.hover.enable": {
+        "paramlight.hover.enable": {
           "type": "boolean",
           "default": true,
           "scope": "language-overridable",
           "description": "Explain decorated names on hover."
         },
-        "allCodeVisual.overviewRuler.enable": {
+        "paramlight.overviewRuler.enable": {
           "type": "boolean",
           "default": false,
           "description": "Show boxed names in the overview ruler."
         },
-        "allCodeVisual.maxFileSize": {
+        "paramlight.maxFileSize": {
           "type": "integer",
           "default": 1000000,
           "minimum": 0,
           "scope": "language-overridable",
           "description": "Skip files longer than this many characters."
         },
-        "allCodeVisual.debounce": {
+        "paramlight.debounce": {
           "type": "integer",
           "default": 200,
           "minimum": 0,
           "maximum": 5000,
           "description": "Delay in milliseconds after typing before decorations are recomputed."
         },
-        "allCodeVisual.format.enable": {
+        "paramlight.format.enable": {
           "type": "boolean",
           "default": true,
           "scope": "language-overridable",
-          "markdownDescription": "Register All Code Visual as a document formatter. Make it the default with `\"editor.defaultFormatter\": \"0xshubhs.allcodevisual\"`."
+          "markdownDescription": "Register Paramlight as a document formatter. Make it the default with `\"editor.defaultFormatter\": \"0xshubhs.paramlight\"`."
         },
-        "allCodeVisual.format.timeout": {
+        "paramlight.format.timeout": {
           "type": "integer",
           "default": 10000,
           "minimum": 1000,
           "scope": "language-overridable",
           "description": "Milliseconds before an external formatter is stopped."
         },
-        "allCodeVisual.format.tools": {
+        "paramlight.format.tools": {
           "type": "object",
           "default": {},
           "scope": "resource",
@@ -278,7 +278,7 @@
     },
     "colors": [
       {
-        "id": "allCodeVisual.fieldBorder",
+        "id": "paramlight.fieldBorder",
         "description": "Border around class fields and struct members.",
         "defaults": {
           "dark": "#DAA520",
@@ -288,7 +288,7 @@
         }
       },
       {
-        "id": "allCodeVisual.readonlyFieldBorder",
+        "id": "paramlight.readonlyFieldBorder",
         "description": "Border around readonly, final and const fields.",
         "defaults": {
           "dark": "#BA55D3",
@@ -298,7 +298,7 @@
         }
       },
       {
-        "id": "allCodeVisual.constantBorder",
+        "id": "paramlight.constantBorder",
         "description": "Border around constants.",
         "defaults": {
           "dark": "#3CB371",
@@ -308,7 +308,7 @@
         }
       },
       {
-        "id": "allCodeVisual.globalBorder",
+        "id": "paramlight.globalBorder",
         "description": "Border around mutable module-level and global variables.",
         "defaults": {
           "dark": "#4F9DE0",
@@ -318,7 +318,7 @@
         }
       },
       {
-        "id": "allCodeVisual.shadowBorder",
+        "id": "paramlight.shadowBorder",
         "description": "Border around declarations that shadow another name.",
         "defaults": {
           "dark": "#FF4040",
